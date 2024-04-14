@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build my project", // Task name...tbh I didn't know what to call it
+            "label": "build", // Task name...tbh I didn't know what to call it
             "type": "shell",  // Specifies the type of task
             "command": "clang++", // Compiler command, clang++ is the C++ compiler I'm using for Mac
             "args": [ 
