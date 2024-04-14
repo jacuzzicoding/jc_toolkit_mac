@@ -9,9 +9,9 @@
                 "-std=c++17",       // C++ standard version
                 "-stdlib=libc++",   // Specifies the C++ standard library to use, libc++ is the one I'm using in this case. Seems to be standard for Mac.
                 "-g",               // Generates debug information
-                "${workspaceFolder}/Users/brockjenkinson/Documents/Repo/jc_toolkit_mac/jctool/jctool.cpp",  // Input source file
+                "${workspaceFolder}/jctool/jctool.cpp",  // Input source file
                 "-o",               // Specifies the output file
-                "${workspaceFolder}/Users/brockjenkinson/Documents/Repo/jc_toolkit_mac/jctool/jctool"       // Output executable name
+                "${workspaceFolder}/jctool/jctool"      // Output executable name
             ],
             "group": {
                 "kind": "build",
