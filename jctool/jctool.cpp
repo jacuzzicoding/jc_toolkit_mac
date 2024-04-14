@@ -2969,12 +2969,12 @@ int Main(array<String^>^ args) {
         if (MessageBox::Show(
             L"The device is not paired or the device was disconnected!\n\n" +
             L"To pair:\n  1. Press and hold the sync button until the leds are on\n" +
-            L"  2. Pair the Bluetooth controller in Windows\n\nTo connect again:\n" +
+            L"  2. Pair the Bluetooth controller to your Mac\n\nTo connect again:\n" + // Updated the message that will be shown to users to redact any mention of Windows
             L"  1. Press a button on the controller\n  (If this doesn\'t work, re-pair.)\n\n" +
             L"To re-pair:\n  1. Go to 'Settings -> Devices' or Devices and Printers'\n" +
             L"  2. Remove the controller\n  3. Follow the pair instructions",
             L"CTCaer's Joy-Con Toolkit - Connection Error!",
-            MessageBoxButtons::RetryCancel, MessageBoxIcon::Stop) == System::Windows::Forms::DialogResult::Cancel)
+            MessageBoxButtons::RetryCancel, MessageBoxIcon::Stop) == System::macOS::Forms::DialogResult::Cancel) //removed windows mention
             return 1;
     }
     // Enable debugging
