@@ -20,7 +20,7 @@
         http://github.com/signal11/hidapi .
 ********************************************************/
 
-#include <windows.h>
+//#include <windows.h>
 
 #ifndef _NTDEF_
 typedef LONG NTSTATUS;
