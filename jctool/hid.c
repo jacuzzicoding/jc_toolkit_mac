@@ -20,60 +20,34 @@
         http://github.com/signal11/hidapi .
 ********************************************************/
 
-//#include <windows.h>
-
-#ifndef _NTDEF_
-typedef LONG NTSTATUS;
-#endif
-
-#ifdef __MINGW32__
-#include <ntdef.h>
-#include <winbase.h>
-#endif
-
-#ifdef __CYGWIN__
-#include <ntdef.h>
-#define _wcsdup wcsdup
-#endif
-
-/* The maximum number of characters that can be passed into the
-   HidD_Get*String() functions without it failing.*/
-#define MAX_STRING_WCHARS 0xFFF
-
-/*#define HIDAPI_USE_DDK*/
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-	#include <setupapi.h>
-	#include <winioctl.h>
-	#ifdef HIDAPI_USE_DDK
-		#include <hidsdi.h>
-	#endif
-
-	/* Copied from inc/ddk/hidclass.h, part of the Windows DDK. */
-	#define HID_OUT_CTL_CODE(id)  \
-		CTL_CODE(FILE_DEVICE_KEYBOARD, (id), METHOD_OUT_DIRECT, FILE_ANY_ACCESS)
-	#define IOCTL_HID_GET_FEATURE                   HID_OUT_CTL_CODE(100)
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
+#include <IOKit/hid/IOHIDManager.h>
+#include <CoreFoundation/CoreFoundation.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #include "hidapi.h"
 #include "hidapi_log.h"
 
-#undef MIN
-#define MIN(x,y) ((x) < (y)? (x): (y))
+// Adjustments for typical data types used in the Windows code that need replacements
+typedef long NTSTATUS; // Will review if I need this, as it's Windows-centric
 
-#ifdef _MSC_VER
-	/* Thanks Microsoft, but I know how to use strncpy(). */
-	#pragma warning(disable:4996)
+// TODO: Custom definitions if any shared logic or macros are necessary (will update)
+#undef MIN
+#define MIN(x, y) ((x) < (y) ? (x) : (y))
+
+#ifdef __cplusplus
+extern "C" {
 #endif
+
+// As we are focusing solely on macOS, no Windows-specific codes or API calls will remain
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
+
+/***********************************************/
+/***********************************************/
 
 #ifdef __cplusplus
 extern "C" {
