@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 // #define NOMINMAX
-#include <Windows.h>
+// removed the windows.h include
 
 #include "jctool.h"
 #include "ir_sensor.h"
