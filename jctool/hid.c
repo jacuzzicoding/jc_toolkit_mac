@@ -48,63 +48,20 @@ extern "C" {
 
 /***********************************************/
 /***********************************************/
+// including the necessary headers for macOS HID API
+#include <IOKit/hid/IOHIDManager.h>
+#include <IOKit/hid/IOHIDKeys.h>
+#include <CoreFoundation/CoreFoundation.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// Redefine the structures using types available in macOS IOKit
+typedef struct _HIDD_ATTRIBUTES {
+    CFIndex Size;           // Use CFIndex where appropriate, adjust type sizes
+    uint32_t VendorID;      // macOS uses uint32_t instead of USHORT
+    uint32_t ProductID;
+    uint32_t VersionNumber;
+} HIDD_ATTRIBUTES, *PHIDD_ATTRIBUTES;
 
-#ifndef HIDAPI_USE_DDK
-	/* Since we're not building with the DDK, and the HID header
-	   files aren't part of the SDK, we have to define all this
-	   stuff here. In lookup_functions(), the function pointers
-	   defined below are set. */
-	typedef struct _HIDD_ATTRIBUTES{
-		ULONG Size;
-		USHORT VendorID;
-		USHORT ProductID;
-		USHORT VersionNumber;
-	} HIDD_ATTRIBUTES, *PHIDD_ATTRIBUTES;
-
-	typedef USHORT USAGE;
-	typedef struct _HIDP_CAPS {
-		USAGE Usage;
-		USAGE UsagePage;
-		USHORT InputReportByteLength;
-		USHORT OutputReportByteLength;
-		USHORT FeatureReportByteLength;
-		USHORT Reserved[17];
-		USHORT fields_not_used_by_hidapi[10];
-	} HIDP_CAPS, *PHIDP_CAPS;
-	typedef void* PHIDP_PREPARSED_DATA;
-	#define HIDP_STATUS_SUCCESS 0x110000
-
-	typedef BOOLEAN (__stdcall *HidD_GetAttributes_)(HANDLE device, PHIDD_ATTRIBUTES attrib);
-	typedef BOOLEAN (__stdcall *HidD_GetSerialNumberString_)(HANDLE device, PVOID buffer, ULONG buffer_len);
-	typedef BOOLEAN (__stdcall *HidD_GetManufacturerString_)(HANDLE handle, PVOID buffer, ULONG buffer_len);
-	typedef BOOLEAN (__stdcall *HidD_GetProductString_)(HANDLE handle, PVOID buffer, ULONG buffer_len);
-	typedef BOOLEAN (__stdcall *HidD_SetFeature_)(HANDLE handle, PVOID data, ULONG length);
-	typedef BOOLEAN (__stdcall *HidD_GetFeature_)(HANDLE handle, PVOID data, ULONG length);
-	typedef BOOLEAN (__stdcall *HidD_GetIndexedString_)(HANDLE handle, ULONG string_index, PVOID buffer, ULONG buffer_len);
-	typedef BOOLEAN (__stdcall *HidD_GetPreparsedData_)(HANDLE handle, PHIDP_PREPARSED_DATA *preparsed_data);
-	typedef BOOLEAN (__stdcall *HidD_FreePreparsedData_)(PHIDP_PREPARSED_DATA preparsed_data);
-	typedef NTSTATUS (__stdcall *HidP_GetCaps_)(PHIDP_PREPARSED_DATA preparsed_data, HIDP_CAPS *caps);
-	typedef BOOLEAN (__stdcall *HidD_SetNumInputBuffers_)(HANDLE handle, ULONG number_buffers);
-
-	static HidD_GetAttributes_ HidD_GetAttributes;
-	static HidD_GetSerialNumberString_ HidD_GetSerialNumberString;
-	static HidD_GetManufacturerString_ HidD_GetManufacturerString;
-	static HidD_GetProductString_ HidD_GetProductString;
-	static HidD_SetFeature_ HidD_SetFeature;
-	static HidD_GetFeature_ HidD_GetFeature;
-	static HidD_GetIndexedString_ HidD_GetIndexedString;
-	static HidD_GetPreparsedData_ HidD_GetPreparsedData;
-	static HidD_FreePreparsedData_ HidD_FreePreparsedData;
-	static HidP_GetCaps_ HidP_GetCaps;
-	static HidD_SetNumInputBuffers_ HidD_SetNumInputBuffers;
-
-	static HMODULE lib_handle = NULL;
-	static BOOLEAN initialized = FALSE;
-#endif /* HIDAPI_USE_DDK */
+/****************************BREAK***********************/
 
 struct hid_device_ {
 		HANDLE device_handle;
