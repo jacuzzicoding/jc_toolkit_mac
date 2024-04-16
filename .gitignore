@@ -286,4 +286,11 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/build/
 build/CMakeCache.txt
+build/CMakeFiles/cmake.check_cache
+build/CMakeFiles/CMakeDirectoryInformation.cmake
+build/CMakeFiles/Makefile.cmake
+build/CMakeFiles/Makefile2
+build/CMakeFiles/progress.marks
+build/CMakeFiles/TargetDirectories.txt
